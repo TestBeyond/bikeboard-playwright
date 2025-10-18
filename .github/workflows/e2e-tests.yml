@@ -6,7 +6,7 @@ on:
         description: 'Escolha o navegador de sua preferência para os testes (chromium, firefox, webkit)'
         required: true
         default: 'chromium'
-      env:
+      base_url:
         description: 'Escolhe o ambiente de testes de sua preferência (local, homolog, production)'
         required: true
         default: 'http://localhost:3000'
@@ -27,7 +27,7 @@ jobs:
       run: npm install
 
     - name: Install Playwright Browsers
-      run: BASE_URL=${{ github.event.inputs.env }} npx playwright install --with-deps ${{ github.event.inputs.browser }}
+      run: BASE_URL=${{ github.event.inputs.base_url }} npx playwright install --with-deps ${{ github.event.inputs.browser }}
 
     - name: Run E2E tests
       run: npx playwright test --project=${{ github.event.inputs.browser }}
